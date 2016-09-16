@@ -1,0 +1,26 @@
+# rcov generated
+coverage
+coverage.data
+
+# rdoc generated
+rdoc
+
+# yard generated
+doc
+.yardoc
+
+# bundler
+.bundle
+Gemfile.lock
+Gemfile.local
+
+# jeweler generated
+pkg
+
+/vendor
+
+.ruby-gemset
+.ruby-version
+
+# mac os
+.DS_Store

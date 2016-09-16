@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift('lib')
+
+require 'rspec'
+require 'rspec-lint'
+
+let_hijack = RSpec::Lint::Let.new
+
+RSpec::Core::ExampleGroup.extend(let_hijack)
+
+RSpec::Core::Runner.run(ARGV)
+
+let_hijack.definitions.each do |definition, name|
+  puts "unused let '#{name}' at #{definition}"
+end
