@@ -6,12 +6,22 @@ $LOAD_PATH.unshift('lib')
 require 'rspec'
 require 'rspec-lint'
 
-let_hijack = RSpec::Lint::Let.new
+let_hijack    = RSpec::Lint::Let.new
+double_hijack = RSpec::Lint::Double::Hijack.new(RSpec::Lint::Double::Hijack::History.new([]))
 
 RSpec::Core::ExampleGroup.extend(let_hijack)
+RSpec::Mocks::ExampleMethods.include(double_hijack)
 
 RSpec::Core::Runner.run(ARGV)
 
 let_hijack.definitions.each do |definition, name|
   puts "unused let '#{name}' at #{definition}"
+end
+
+double_hijack.mismatched_definitions do |double|
+  puts double.definition_location
+  puts "  Defined but not used: #{double.unused_selectors.to_a}"
+  puts "  Used but not defined: #{double.unspecified_selectors.to_a}"
+  puts
+  puts
 end

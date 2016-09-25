@@ -25,6 +25,7 @@ module RSpec
       end
 
       module Mixin
+        # :reek:TooManyStatements
         def let(name)
           definition = caller.first
           hijack = hijacker

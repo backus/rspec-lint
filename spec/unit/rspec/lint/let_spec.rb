@@ -7,6 +7,7 @@ RSpec.describe RSpec::Lint::Let do
     Class.new(RSpec::Core::ExampleGroup)
   end
 
+  # rubocop:disable RSpec/EmptyExampleGroup
   let(:rspec_describe) do
     example_group.describe do
       def use_foo
@@ -14,6 +15,7 @@ RSpec.describe RSpec::Lint::Let do
       end
     end
   end
+  # rubocop:enable RSpec/EmptyExampleGroup
 
   before do
     example_group.extend(mixin)
@@ -23,8 +25,8 @@ RSpec.describe RSpec::Lint::Let do
 
   it 'hijacks let definitions' do
     expect(mixin.definitions).to eql(
-      "#{__FILE__}:20:in `block (2 levels) in <top (required)>'" => :foo,
-      "#{__FILE__}:21:in `block (2 levels) in <top (required)>'" => :bar
+      "#{__FILE__}:22:in `block (2 levels) in <top (required)>'" => :foo,
+      "#{__FILE__}:23:in `block (2 levels) in <top (required)>'" => :bar
     )
   end
 
@@ -32,7 +34,7 @@ RSpec.describe RSpec::Lint::Let do
     rspec_describe.new.use_foo
 
     expect(mixin.definitions).to eql(
-      "#{__FILE__}:21:in `block (2 levels) in <top (required)>'" => :bar
+      "#{__FILE__}:23:in `block (2 levels) in <top (required)>'" => :bar
     )
   end
 

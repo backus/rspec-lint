@@ -1,6 +1,7 @@
 ---
 require:
   - rubocop-rspec
+inherit_from: ../.rubocop_todo.yml
 AllCops:
   Exclude:
   - vendor/**/*
@@ -83,3 +84,11 @@ RSpec/ExampleLength:
   Enabled: false
 RSpec/VerifiedDoubles:
   IgnoreSymbolicNames: true
+RSpec/MessageExpectation:
+  EnforcedStyle: expect
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/integration/**/*.rb'
+Style/FileName:
+  Exclude:
+    - 'lib/rspec-lint.rb'

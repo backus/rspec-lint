@@ -75,4 +75,6 @@ guard :rspec, cmd: 'bundle exec rspec --order defined --format documentation' do
   watch(/\Alib\/(.+)\.rb\z/, &RSpecMapper)
 
   watch(/\Aspec.+\.rb/)
+
+  watch(/\Abin\/rspec\-lint/) { 'spec/integration' }
 end
