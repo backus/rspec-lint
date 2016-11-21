@@ -57,14 +57,21 @@ module RSpec
             end
           end
 
+          def self.spy_workaround(spy_method, double_method)
+            define_method(spy_method) do |*args|
+              method(double_method).super_method.call(*args).as_null_object
+            end
+          end
+
           hijack :double
           hijack :instance_double
           hijack :class_double
           hijack :object_double
-          hijack :spy
-          hijack :instance_spy
-          hijack :class_spy
-          hijack :object_spy
+
+          spy_workaround :spy, :double
+          spy_workaround :instance_spy, :instance_double
+          spy_workaround :class_spy, :class_double
+          spy_workaround :object_spy, :object_double
         end
       end
     end
