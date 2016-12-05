@@ -1,9 +1,14 @@
 # frozen_string_literal: true
+
 module RSpec
   module Lint
     class Double
       class Wrapper < SimpleDelegator
         include Concord.new(:recorder)
+
+        def __id__
+          __getobj__.__id__
+        end
 
         def initialize(recorder, target)
           super(recorder)
